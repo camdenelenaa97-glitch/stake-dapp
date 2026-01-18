@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>质押 & 分红（BSC）</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/ethers@6/dist/ethers.min.js"></script>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>质押 & 分红（BSC）</h1>
+      <div id="wallet">
+        <button id="connectBtn">连接钱包</button>
+        <span id="addr"></span>
+      </div>
+    </header>
+
+    <main>
+      <section class="card">
+        <h2>合约信息</h2>
+        <p>质押合约地址: <code id="contractAddress">0xCb5c82879A56006d6eEF2d03391E48ff774919A2</code></p>
+        <p>代币合约地址: <code id="tokenAddress">-</code></p>
+        <p>网络: <span id="network">未连接</span></p>
+      </section>
+
+      <section class="card">
+        <h2>账户信息</h2>
+        <p>代币余额: <span id="balance">-</span></p>
+        <p>已质押（总计）: <span id="staked">-</span></p>
+        <p>可领取分红: <span id="dividends">-</span></p>
+        <div id="stakesContainer">
+          <h3>我的质押条目</h3>
+          <button id="refreshStakesBtn">刷新质押列表</button>
+          <ul id="stakesList"></ul>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2>操作</h2>
+
+        <div class="op">
+          <h3>领取分红</h3>
+          <button id="claimBtn" class="primary">领取分红</button>
+        </div>
+
+        <div class="op">
+          <h3>质押代币</h3>
+          <input id="stakeAmount" type="number" min="0" step="any" placeholder="输入质押数量">
+          <button id="approveBtn">先批准（ERC20 授权）</button>
+          <button id="stakeBtn" class="primary">质押</button>
+        </div>
+
+        <div class="op">
+          <h3>取消质押（按索引）</h3>
+          <input id="unstakeIndex" type="number" min="0" step="1" placeholder="输入要解除的质押索引（整数）">
+          <button id="unstakeBtn" class="danger">取消质押（按索引）</button>
+        </div>
+
+        <p id="status" class="status">状态: 未连接</p>
+      </section>
+
+      <footer>
+        <small>提示：已把你提供的 staking 合约 ABI 整合进脚本；若要我把页面部署或加入 WalletConnect，我可以继续帮你。</small>
+      </footer>
+    </main>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
