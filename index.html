@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>质押 & 分红（BSC）</title>
   <link rel="stylesheet" href="style.css">
-  <script src="https://cdn.jsdelivr.net/npm/ethers@6/dist/ethers.min.js"></script>
 </head>
 <body>
   <div class="container">
@@ -66,6 +65,27 @@
       </footer>
     </main>
   </div>
+
+  <!-- 确保在加载 app.js 之前，ethers 已以 ESM 方式导入并挂到全局 -->
+  <script type="module">
+    try {
+      // 从 CDN 以 ESM 方式导入 ethers（v6 的 ESM 构建），并挂到 window 上供非模块脚本使用
+      import * as _ethers from 'https://cdn.jsdelivr.net/npm/ethers@6/dist/ethers.esm.min.js';
+      window.ethers = _ethers;
+    } catch (e) {
+      // 如果 ESM 导入失败，仍尝试加载兼容的 UMD 版本作为回退（会在非模块环境下工作）
+      const s = document.createElement('script');
+      s.src = 'https://cdn.jsdelivr.net/npm/ethers@6/dist/ethers.min.js';
+      s.onload = () => {
+        // ethers UMD 会把 ethers 挂到全局
+        console.log('Loaded ethers UMD fallback');
+      };
+      s.onerror = () => {
+        console.error('Failed to load ethers from CDN.');
+      };
+      document.head.appendChild(s);
+    }
+  </script>
 
   <script src="app.js"></script>
 </body>
